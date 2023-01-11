@@ -31,11 +31,12 @@ bool LLParser::Parse()
 			auto rowPtr = currentRow.GetPointer();
 			if (rowPtr)
 			{
-				currentRow = m_table.GetRow(*rowPtr);
+				currentRow = m_table.GetRow(currentRowPtr = *rowPtr);
 			}
 			else if (!m_stack.empty())
 			{
-				currentRow = m_table.GetRow(m_stack.top());
+				currentRowPtr = m_stack.top();
+				currentRow = m_table.GetRow(currentRowPtr);
 				m_stack.pop();
 			}
 			else
@@ -44,5 +45,6 @@ bool LLParser::Parse()
 			}
 		}
 	}
-	return true;
+
+	return m_input.eof();
 }

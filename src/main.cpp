@@ -12,7 +12,7 @@ int main()
 	table.AddRow(5, TableRow({ '-', '(', 'a', 'b', '8', '3' }, false, true, 6, false, false));
 	table.AddRow(6, TableRow({ '-', '(', 'a', 'b', '8', '3' }, false, false, 16, true, false));
 	table.AddRow(7, TableRow({}, false, false, 12, false, false));
-	table.AddRow(8, TableRow({ '+' }, true, false, 9, false, false));
+	table.AddRow(8, TableRow({ '+' }, true, false, 10, false, false));
 	table.AddRow(9, TableRow({}, false, false, {}, false, false));
 	table.AddRow(10, TableRow({ '-', '(', 'a', 'b', '8', '3' }, false, false, 5, true, false));
 	table.AddRow(11, TableRow({}, false, false, 8, false, false));
@@ -29,7 +29,11 @@ int main()
 	table.AddRow(22, TableRow({ '-', '(', 'a', 'b', '8', '3' }, false, false, 1, true, false));
 	table.AddRow(23, TableRow({ ')' }, true, false, {}, false, false));
 
-	LLParser parser(std::cin, table);
+	std::string str;
+	std::getline(std::cin, str);
+	std::istringstream iss(str);
+
+	LLParser parser(iss, table);
 
 	if (parser.Parse())
 	{
