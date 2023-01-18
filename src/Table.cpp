@@ -13,8 +13,6 @@ TableRow& Table::GetRow(TableRowPtr rowPtr)
 	return m_rows.at(rowPtr);
 }
 
-
-
 void Table::PrintRow(TableRowPtr rowPtr)
 {
 	if (rowPtr == 1)
