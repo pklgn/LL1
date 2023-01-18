@@ -11,6 +11,8 @@ public:
 
 	TableRow& GetRow(TableRowPtr rowPtr);
 
+	void PrintRow(TableRowPtr);
+
 private:
 	std::unordered_map<TableRowPtr, TableRow> m_rows;
 };

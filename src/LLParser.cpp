@@ -13,6 +13,10 @@ bool LLParser::Parse()
 
 	while (!currentRow.IsEnd())
 	{
+		if (_DEBUG)
+		{
+			m_table.PrintRow(currentRowPtr);
+		}
 		if (!currentRow.DirectionalSymbolMatched(m_input.peek()))
 		{
 			if (currentRow.IsError())
