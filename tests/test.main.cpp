@@ -1,12 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "../src/TaskTable.h"
 #include "../src/LLParser.h"
 
 TEST_CASE("SUCCESS testies")
 {
-	std::string expected;
-	std::string actual;
-
 	std::istringstream iss;
 
 	TaskTable table;
@@ -143,5 +140,60 @@ TEST_CASE("SUCCESS testies")
 		iss.str("-((((a))))*-8+a");
 
 		REQUIRE(parser.Parse());
+	}
+}
+
+TEST_CASE("Error tests")
+{
+	std::istringstream iss;
+
+	TaskTable table;
+	LLParser parser(iss, table);
+
+	SECTION("Unbalanced brackets sequences")
+	{
+		std::vector<std::string> unbalancedSequences = {
+			"(",
+			")",
+			"(()",
+			"())",
+			"(b",
+			"b)",
+		};
+		
+		for (auto&& sequence : unbalancedSequences)
+		{
+			iss.str(std::string());
+			DYNAMIC_SECTION("Concrete sequence: " << sequence)
+			{
+				iss.str(sequence);
+
+				REQUIRE_FALSE(parser.Parse());
+			}
+		}
+	}
+
+	SECTION("Incorrect combination of params")
+	{
+		std::unordered_map<std::string, size_t> combinations = {
+			{ "b*bb", 3 },
+			{ "()()", 2 },
+			{ "((a*))8", 6 }, // TODO: ошибка в позиции 6, хотя вроде логичнее сразу после * ее получать?
+			{ "88*3", 1 },
+			{ "*b", 0 },
+			//"8*", TODO: тест не должен падать
+		};
+
+		for (auto&& [combination, errorPos] : combinations)
+		{
+			iss.str(std::string());
+			DYNAMIC_SECTION("Concrete combination: " << combination)
+			{
+				iss.str(combination);
+
+				REQUIRE_FALSE(parser.Parse());
+				REQUIRE(parser.GetTapePosition() == errorPos);
+			}
+		}
 	}
 }
