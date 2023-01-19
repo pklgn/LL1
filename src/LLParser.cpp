@@ -29,7 +29,10 @@ bool LLParser::Parse()
 		else
 		{
 			if (currentRow.ShouldShift())
+			{
 				m_input.get();
+				++m_tapePosition;
+			}
 
 			if (currentRow.ShouldSaveNextRowAddressInStack())
 			{
@@ -63,4 +66,9 @@ bool LLParser::Parse()
 	}
 
 	return m_input.eof();
+}
+
+size_t LLParser::GetTapePosition() const
+{
+	return m_tapePosition;
 }

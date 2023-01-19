@@ -15,13 +15,13 @@ int main()
 
 	if (parser.Parse())
 	{
-		std::cout << "SUCCESS" << std::endl;
+		std::cout << "SUCCESS\n";
 
 		return 0;
 	}
 	else
 	{
-		std::cout << "ERROR" << std::endl;
+		std::cout << "ERROR at " << parser.GetTapePosition() + 1 << " position\n";
 
 		return 1;
 	}
