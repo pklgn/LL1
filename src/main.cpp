@@ -9,6 +9,7 @@ int main()
 
 	std::string str;
 	std::getline(std::cin, str);
+	str += '\n';
 	std::istringstream iss(str);
 
 	LLParser parser(iss, table);

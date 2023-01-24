@@ -9,17 +9,19 @@ LLParser::LLParser(std::istream& input, const Table& table)
 
 bool LLParser::Parse()
 {
+	
 	TableRowPtr currentRowPtr = 1;
 	// FIXED: убрать ссылку, каким-то образом меняется значение строки, из-за этого цикл бесконечный для -(8)
 	TableRow currentRow = m_table.GetRow(currentRowPtr);
-
+	char currCh;
 	while (!currentRow.IsEnd() || !m_stack.empty())
 	{
 		if constexpr (LL1_DEBUG)
 		{
 			m_table.PrintRow(currentRowPtr);
 		}
-		if (!currentRow.DirectionalSymbolMatched(m_input.peek()))
+		currCh = m_input.peek();
+		if (!currentRow.DirectionalSymbolMatched(currCh))
 		{
 			if (currentRow.IsError())
 				return false;
@@ -65,7 +67,7 @@ bool LLParser::Parse()
 		}
 	}
 
-	return m_input.eof();
+	return currCh == '\n';
 }
 
 size_t LLParser::GetTapePosition() const
