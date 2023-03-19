@@ -13,13 +13,20 @@ set(PROJECT_APP_TARGET
 
 set(_lib_headers_list
 	pch.h
-
+	TaskTable.h
+	LLParser.h
+	Table.h
+	TableRow.h
+	common.h
 	# Place here relative paths to all *.(h|hpp)
 )
 
 set(_lib_src_list
 	pch.cpp
-
+	TaskTable.cpp
+	LLParser.cpp
+	Table.cpp
+	TableRow.cpp
 	# Place here relative paths to all *.(h|hpp)
 )
 
