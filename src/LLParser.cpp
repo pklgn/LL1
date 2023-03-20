@@ -31,8 +31,11 @@ bool LLParser::Parse()
 		{
 			if (currentRow.ShouldShift())
 			{
-				m_input.get();
 				++m_tapePosition;
+				if constexpr (LL1_DEBUG)
+				{
+					std::cout << char(m_input.get()) << std::endl;
+				}
 			}
 
 			if (currentRow.ShouldSaveNextRowAddressInStack())

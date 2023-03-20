@@ -51,20 +51,6 @@ TEST_CASE("SUCCESS testies")
 		REQUIRE(parser.Parse());
 	}
 
-	SECTION("Check brackets")
-	{
-		iss.str("()\n");
-
-		REQUIRE(parser.Parse());
-	}
-
-	SECTION("Check nested pair of brackets")
-	{
-		iss.str("(())\n");
-
-		REQUIRE(parser.Parse());
-	}
-
 	SECTION("Check terminal in brackets")
 	{
 		iss.str("(a)\n");
@@ -157,6 +143,11 @@ TEST_CASE("Error tests")
 			")\n",
 			"(()\n",
 			"())\n",
+
+			// FIXED: empty braces are invalid
+			"()\n",
+			"(((())))\n",
+
 			"(b\n",
 			"b)\n",
 		};
@@ -177,7 +168,7 @@ TEST_CASE("Error tests")
 	{
 		std::unordered_map<std::string, size_t> combinations = {
 			{ "b*bb\n", 3 },
-			{ "()()\n", 2 },
+			{ "()()\n", 1 },
 			{ "((a*))8\n", 4 }, // FIXED: ошибка в позиции 6, хотя вроде логичнее сразу после * ее получать?
 			{ "88*3\n", 1 },
 			{ "*b\n", 0 },

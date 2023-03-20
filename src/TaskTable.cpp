@@ -24,6 +24,6 @@ TaskTable::TaskTable()
 	AddRow(20, TableRow({ 'b' }, true, false, {}, false, false));
 	AddRow(21, TableRow({ '8' }, true, false, {}, false, false));
 	AddRow(22, TableRow({ '3' }, true, true, {}, false, false));
-	AddRow(23, TableRow({ '-', '(', 'a', 'b', '8', '3' }, false, false, 1, true, false));
+	AddRow(23, TableRow({ '-', '(', 'a', 'b', '8', '3' }, false, true, 1, true, false));
 	AddRow(24, TableRow({ ')' }, true, true, {}, false, false));
 }
